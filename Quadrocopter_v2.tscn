@@ -1,0 +1,707 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Quadrocopter_v4.gd" type="Script" id=1]
+[ext_resource path="res://addons/smoothing/smoothing.gd" type="Script" id=2]
+[ext_resource path="res://vismat_motors.tres" type="Material" id=3]
+[ext_resource path="res://ChaseCamera.gd" type="Script" id=4]
+[ext_resource path="res://DJI_Spark_Drone.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sounds/whine.ogg" type="AudioStream" id=6]
+[ext_resource path="res://UI/drone-top.png" type="Texture" id=7]
+[ext_resource path="res://music/funkorama-by-kevin-macleod-from-filmmusic-io.ogg" type="AudioStream" id=8]
+[ext_resource path="res://UI/metal-gear.png" type="Texture" id=9]
+[ext_resource path="res://UI/metal-gear2.png" type="Texture" id=10]
+
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.03
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.3, 0.1, 0.5 )
+
+[sub_resource type="SphereShape" id=13]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id=3]
+radius = 0.1
+height = 0.2
+radial_segments = 4
+rings = 1
+
+[sub_resource type="PhysicsMaterial" id=4]
+friction = 0.5
+rough = true
+bounce = 0.3
+absorbent = true
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.232413, 0.137293, 0.406826 )
+
+[sub_resource type="CylinderShape" id=6]
+radius = 0.3
+height = 0.05
+
+[sub_resource type="SphereMesh" id=7]
+resource_local_to_scene = true
+radius = 0.05
+height = 0.5
+radial_segments = 4
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="SphereMesh" id=8]
+resource_local_to_scene = true
+radius = 0.05
+height = 0.5
+radial_segments = 4
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="SphereMesh" id=9]
+resource_local_to_scene = true
+radius = 0.05
+height = 0.5
+radial_segments = 4
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="SphereMesh" id=10]
+resource_local_to_scene = true
+radius = 0.05
+height = 0.5
+radial_segments = 4
+rings = 1
+is_hemisphere = true
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.6, 0.00392157, 0.560784, 1 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0, 0, 0, 0.752941 )
+
+[node name="Quadrocopter" type="Spatial"]
+
+[node name="Smoothing" type="Spatial" parent="."]
+transform = Transform( 1, 1.49012e-08, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+script = ExtResource( 2 )
+target = NodePath("../../Quadrocopter/Quadrocopter")
+
+[node name="DJI_Spark_Drone" parent="Smoothing" instance=ExtResource( 5 )]
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0, 0 )
+
+[node name="Rotors" type="Spatial" parent="Smoothing"]
+visible = false
+
+[node name="FL" type="MeshInstance" parent="Smoothing/Rotors"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0.4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="FR" type="MeshInstance" parent="Smoothing/Rotors"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, 0.4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="BL" type="MeshInstance" parent="Smoothing/Rotors"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, -0.4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="BR" type="MeshInstance" parent="Smoothing/Rotors"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0, -0.4 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Body" type="MeshInstance" parent="Smoothing"]
+visible = false
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="cammount" type="Spatial" parent="Smoothing"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76643e-09, 0.319869, 0 )
+
+[node name="cammount" type="SpringArm" parent="Smoothing/cammount"]
+transform = Transform( -1, 1.62921e-07, -2.82187e-07, 0, 0.866025, 0.5, 3.25841e-07, 0.5, -0.866025, -4.13504e-09, 0.277497, -0.743858 )
+collision_mask = 3
+shape = SubResource( 13 )
+spring_length = 3.0
+margin = 1.0
+
+[node name="campoint" type="Spatial" parent="Smoothing/cammount/cammount"]
+transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, -9.77524e-07, 0.232051, 3.59808 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Smoothing/cammount/cammount"]
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Quadrocopter" type="RigidBody" parent="."]
+transform = Transform( 1, 1.49012e-08, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+physics_material_override = SubResource( 4 )
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource( 1 )
+
+[node name="GroundIRSensor" type="RayCast" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, -1.29153 )
+enabled = true
+cast_to = Vector3( 0, -6, 0 )
+
+[node name="BodyCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91188e-09, 0.128304, 0 )
+shape = SubResource( 5 )
+
+[node name="MotorSound" type="AudioStreamPlayer3D" parent="Quadrocopter"]
+transform = Transform( 1, -1.49012e-08, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, 0.34 )
+stream = ExtResource( 6 )
+unit_size = 10.0
+pitch_scale = 0.1
+autoplay = true
+bus = "Drone"
+doppler_tracking = 1
+
+[node name="FLCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, 0.34 )
+shape = SubResource( 6 )
+
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/FLCollision"]
+visible = false
+mesh = SubResource( 7 )
+material/0 = ExtResource( 3 )
+
+[node name="FRCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 0.266143, 0.34 )
+shape = SubResource( 6 )
+
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/FRCollision"]
+visible = false
+mesh = SubResource( 8 )
+material/0 = ExtResource( 3 )
+
+[node name="BLCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, -0.34 )
+shape = SubResource( 6 )
+
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/BLCollision"]
+visible = false
+mesh = SubResource( 9 )
+material/0 = ExtResource( 3 )
+
+[node name="BRCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 0.266143, -0.34 )
+shape = SubResource( 6 )
+
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/BRCollision"]
+visible = false
+mesh = SubResource( 10 )
+material/0 = ExtResource( 3 )
+
+[node name="UI" type="Control" parent="Quadrocopter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBar" type="ColorRect" parent="Quadrocopter/UI"]
+anchor_right = 1.0
+margin_bottom = 33.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Motor" type="Label" parent="Quadrocopter/UI"]
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 181.0
+margin_bottom = 15.0
+text = "Motor: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="Quadrocopter/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -183.0
+margin_top = 8.0
+margin_bottom = 22.0
+text = "FPS: "
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accelerometer" type="Label" parent="Quadrocopter/UI"]
+margin_left = 205.0
+margin_top = 1.0
+margin_right = 760.0
+margin_bottom = 15.0
+text = "Accel: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accelerometer2" type="Label" parent="Quadrocopter/UI"]
+margin_left = 205.0
+margin_top = 17.0
+margin_right = 340.0
+margin_bottom = 31.0
+text = "Accel: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accelerometer3" type="Label" parent="Quadrocopter/UI"]
+margin_left = 305.0
+margin_top = 17.0
+margin_right = 417.0
+margin_bottom = 31.0
+text = "Accel: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GroundIR" type="Label" parent="Quadrocopter/UI"]
+margin_left = 3.0
+margin_top = 17.0
+margin_right = 140.0
+margin_bottom = 43.0
+text = "Motor: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Label" parent="Quadrocopter/UI"]
+margin_left = 13.0
+margin_top = 48.0
+margin_right = 333.0
+margin_bottom = 306.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Controls:
+[F1] Show/hide controls
+
+[W]/[S] - Climb/Descent
+[A]/[D] - Roll left/right
+[Arrows] - Pitch and yaw
+
+[Space] - Hover mode
+[G] - Grab/release package
+
+[C] - Toggle camera view
+[M] - Toggle music
+[N] - Toggle drone noise
+[L] - Lufthansa
+[P] - Pause
+
+[ESC] - Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DroneTop" type="TextureRect" parent="Quadrocopter/UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -191.355
+margin_top = -193.94
+margin_right = -41.3555
+margin_bottom = -43.9401
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FL" type="ProgressBar" parent="Quadrocopter/UI/DroneTop"]
+margin_left = 13.5367
+margin_top = 17.2481
+margin_right = 53.5367
+margin_bottom = 47.2481
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+step = 1.0
+value = 50.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FR" type="ProgressBar" parent="Quadrocopter/UI/DroneTop"]
+margin_left = 97.5367
+margin_top = 17.2481
+margin_right = 137.537
+margin_bottom = 47.2481
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+step = 1.0
+value = 50.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BL" type="ProgressBar" parent="Quadrocopter/UI/DroneTop"]
+margin_left = 13.5367
+margin_top = 100.248
+margin_right = 53.5367
+margin_bottom = 130.248
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+step = 1.0
+value = 50.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BR" type="ProgressBar" parent="Quadrocopter/UI/DroneTop"]
+margin_left = 97.5367
+margin_top = 100.248
+margin_right = 137.537
+margin_bottom = 130.248
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 12 )
+step = 1.0
+value = 50.0
+rounded = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Battery" type="Label" parent="Quadrocopter/UI"]
+margin_left = 506.0
+margin_top = 2.0
+margin_right = 659.0
+margin_bottom = 16.0
+text = "Battery"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hover" type="Label" parent="Quadrocopter/UI"]
+margin_left = 506.0
+margin_top = 17.0
+margin_right = 584.0
+margin_bottom = 31.0
+text = "Hover mode:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hover2" type="Label" parent="Quadrocopter/UI"]
+margin_left = 592.0
+margin_top = 17.0
+margin_right = 659.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "OFF"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsPanel" type="Control" parent="Quadrocopter/UI"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -417.0
+margin_bottom = 542.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Backround" type="ColorRect" parent="Quadrocopter/UI/SettingsPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 99.0
+margin_top = 33.0
+margin_bottom = -63.0
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 75.0
+margin_right = 150.0
+margin_bottom = 89.0
+text = "Drone"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Quadrocopter/UI/SettingsPanel/Label"]
+margin_left = 42.0
+margin_top = 6.0
+margin_right = 295.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 274.0
+margin_right = 164.0
+margin_bottom = 288.0
+text = "Weather"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Quadrocopter/UI/SettingsPanel/Label2"]
+margin_left = 60.0
+margin_top = 6.0
+margin_right = 295.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 389.0
+margin_right = 164.0
+margin_bottom = 403.0
+text = "Graphics"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="Quadrocopter/UI/SettingsPanel/Label3"]
+margin_left = 60.0
+margin_top = 6.0
+margin_right = 295.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MMPower" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 96.0
+margin_right = 226.0
+margin_bottom = 110.0
+text = "Max motor power:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider" type="HSlider" parent="Quadrocopter/UI/SettingsPanel/MMPower"]
+margin_top = 20.0
+margin_right = 295.0
+margin_bottom = 36.0
+min_value = 4.0
+max_value = 12.0
+step = 0.1
+value = 8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wind speed" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 297.0
+margin_right = 226.0
+margin_bottom = 311.0
+text = "Wind speed:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindSpeedSlider" type="HSlider" parent="Quadrocopter/UI/SettingsPanel/Wind speed"]
+margin_left = 0.902588
+margin_top = 20.0
+margin_right = 295.903
+margin_bottom = 36.0
+max_value = 0.8
+step = 0.001
+value = 0.015
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Wind speed2" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 342.0
+margin_right = 226.0
+margin_bottom = 356.0
+text = "Wind variation:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WindVariationSlider" type="HSlider" parent="Quadrocopter/UI/SettingsPanel/Wind speed2"]
+margin_left = 0.902588
+margin_top = 20.0
+margin_right = 295.903
+margin_bottom = 36.0
+max_value = 1.0
+step = 0.01
+value = 0.1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Aggressiveness" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 136.0
+margin_right = 226.0
+margin_bottom = 150.0
+text = "Aggressiveness:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider2" type="HSlider" parent="Quadrocopter/UI/SettingsPanel/Aggressiveness"]
+margin_top = 20.0
+margin_right = 295.0
+margin_bottom = 36.0
+min_value = 0.5
+max_value = 4.0
+step = 0.1
+value = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tilt" type="Label" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 181.0
+margin_right = 226.0
+margin_bottom = 195.0
+text = "Tilt limit:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider3" type="HSlider" parent="Quadrocopter/UI/SettingsPanel/Tilt"]
+margin_top = 20.0
+margin_right = 295.0
+margin_bottom = 36.0
+min_value = 1.0
+max_value = 40.0
+step = 0.1
+value = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WirelessCharge" type="CheckBox" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 110.0
+margin_top = 229.0
+margin_right = 267.0
+margin_bottom = 253.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Wireless charging"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSync" type="CheckBox" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 143.0
+margin_top = 410.0
+margin_right = 233.0
+margin_bottom = 434.0
+focus_mode = 0
+pressed = true
+enabled_focus_mode = 0
+text = "VSync"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="CheckBox" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 143.0
+margin_top = 436.0
+margin_right = 233.0
+margin_bottom = 460.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Windowed"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Antialiasing" type="CheckBox" parent="Quadrocopter/UI/SettingsPanel"]
+margin_left = 255.95
+margin_top = 410.0
+margin_right = 357.95
+margin_bottom = 434.0
+focus_mode = 0
+pressed = true
+enabled_focus_mode = 0
+text = "Antialiasing"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SettingsButton" type="TextureButton" parent="Quadrocopter/UI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -74.9993
+margin_top = 3.99974
+margin_right = -10.9993
+margin_bottom = 67.9997
+focus_mode = 0
+mouse_default_cursor_shape = 2
+enabled_focus_mode = 0
+texture_normal = ExtResource( 9 )
+texture_hover = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitDialog" type="ConfirmationDialog" parent="Quadrocopter/UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -35.0
+margin_right = 100.0
+margin_bottom = 35.0
+window_title = "Quit"
+dialog_text = "Do you want to exit now?"
+
+[node name="GrabCast" type="RayCast" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66119e-09, 0.0774808, 0.00399283 )
+enabled = true
+exclude_parent = false
+cast_to = Vector3( 0, -0.2, 0 )
+collide_with_areas = true
+
+[node name="PinJoint" type="Generic6DOFJoint" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.98084e-10, -0.0267145, 0 )
+collision/exclude_nodes = false
+
+[node name="Music" type="AudioStreamPlayer" parent="Quadrocopter"]
+stream = ExtResource( 8 )
+bus = "Music"
+
+[node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
+doppler_tracking = 1
+current = true
+fov = 60.0
+far = 4800.0
+target = NodePath("../Smoothing/cammount/cammount/campoint")
+speed = 5.0
+enabled = true
+script = ExtResource( 4 )
+[connection signal="value_changed" from="Quadrocopter/UI/SettingsPanel/MMPower/Slider" to="Quadrocopter" method="_on_Slider_value_changed"]
+[connection signal="value_changed" from="Quadrocopter/UI/SettingsPanel/Wind speed/WindSpeedSlider" to="Quadrocopter" method="_on_WindSpeedSlider_value_changed"]
+[connection signal="value_changed" from="Quadrocopter/UI/SettingsPanel/Wind speed2/WindVariationSlider" to="Quadrocopter" method="_on_WindVariationSlider_value_changed"]
+[connection signal="value_changed" from="Quadrocopter/UI/SettingsPanel/Aggressiveness/Slider2" to="Quadrocopter" method="_on_Slider2_value_changed"]
+[connection signal="value_changed" from="Quadrocopter/UI/SettingsPanel/Tilt/Slider3" to="Quadrocopter" method="_on_Slider3_value_changed"]
+[connection signal="toggled" from="Quadrocopter/UI/SettingsPanel/VSync" to="Quadrocopter" method="_on_VSync_toggled"]
+[connection signal="toggled" from="Quadrocopter/UI/SettingsPanel/Fullscreen" to="Quadrocopter" method="_on_Fullscreen_toggled"]
+[connection signal="toggled" from="Quadrocopter/UI/SettingsPanel/Antialiasing" to="Quadrocopter" method="_on_Antialiasing_toggled"]
+[connection signal="pressed" from="Quadrocopter/UI/SettingsButton" to="Quadrocopter" method="_on_SettingsButton_pressed"]
+[connection signal="confirmed" from="Quadrocopter/UI/QuitDialog" to="Quadrocopter" method="_on_QuitDialog_confirmed"]

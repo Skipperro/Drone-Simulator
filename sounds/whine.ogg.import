@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/whine.ogg-eac158221fa08af6a9b6006f796a90a3.oggstr"
+
+[deps]
+
+source_file="res://sounds/whine.ogg"
+dest_files=[ "res://.import/whine.ogg-eac158221fa08af6a9b6006f796a90a3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

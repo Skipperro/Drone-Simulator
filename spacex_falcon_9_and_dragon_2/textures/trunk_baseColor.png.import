@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/trunk_baseColor.png-a0c00a8162a75a3d3adc3e1fb1f18183.s3tc.stex"
+path.etc2="res://.import/trunk_baseColor.png-a0c00a8162a75a3d3adc3e1fb1f18183.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://spacex_falcon_9_and_dragon_2/textures/trunk_baseColor.png"
+dest_files=[ "res://.import/trunk_baseColor.png-a0c00a8162a75a3d3adc3e1fb1f18183.s3tc.stex", "res://.import/trunk_baseColor.png-a0c00a8162a75a3d3adc3e1fb1f18183.etc2.stex" ]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=true
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=1
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/funkorama-by-kevin-macleod-from-filmmusic-io.ogg-afa5dcd0dded147e1273c4220df1256d.oggstr"
+
+[deps]
+
+source_file="res://music/funkorama-by-kevin-macleod-from-filmmusic-io.ogg"
+dest_files=[ "res://.import/funkorama-by-kevin-macleod-from-filmmusic-io.ogg-afa5dcd0dded147e1273c4220df1256d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

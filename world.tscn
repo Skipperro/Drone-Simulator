@@ -1,0 +1,1289 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://Quadrocopter_v2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world.gd" type="Script" id=2]
+[ext_resource path="res://DeliveryBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://hex.jpg" type="Texture" id=4]
+[ext_resource path="res://DeliveryBox_Small.tscn" type="PackedScene" id=5]
+[ext_resource path="res://DeliveryBox_Medium.tscn" type="PackedScene" id=6]
+[ext_resource path="res://hex2.jpg" type="Texture" id=7]
+[ext_resource path="res://tesla_cybertruck/Cybertruck.tscn" type="PackedScene" id=8]
+[ext_resource path="res://hex_rough2.jpg" type="Texture" id=9]
+[ext_resource path="res://tesla_supercharger/Supercharger.tscn" type="PackedScene" id=10]
+[ext_resource path="res://WindlessArea.gd" type="Script" id=11]
+[ext_resource path="res://boeing737/LufthansaBoeing.tscn" type="PackedScene" id=12]
+[ext_resource path="res://spacex_falcon_9_and_dragon_2/SpaceXFalcon.tscn" type="PackedScene" id=13]
+[ext_resource path="res://PlaneScript.gd" type="Script" id=14]
+[ext_resource path="res://fridge_zil/fridge.tscn" type="PackedScene" id=15]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1000, 0.1, 1000 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_texture = ExtResource( 7 )
+metallic_texture = ExtResource( 7 )
+roughness_texture = ExtResource( 9 )
+uv1_scale = Vector3( 1000, 1000, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_color = Color( 0.952941, 0.0941176, 0.027451, 1 )
+albedo_texture = ExtResource( 4 )
+uv1_scale = Vector3( 100, 100, 100 )
+distance_fade_mode = 1
+distance_fade_min_distance = 100.0
+distance_fade_max_distance = 1.0
+
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
+size = Vector3( 1000, 0.1, 1000 )
+
+[sub_resource type="CubeMesh" id=5]
+material = SubResource( 3 )
+size = Vector3( 1000, 1000, 0.1 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 500, 0.1, 500 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 500, 100, 1 )
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_color = Color( 1, 0, 0, 0.752941 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+albedo_color = Color( 0, 1, 0.0156863, 0.501961 )
+
+[sub_resource type="SpatialMaterial" id=10]
+albedo_texture = ExtResource( 7 )
+metallic_texture = ExtResource( 7 )
+roughness_texture = ExtResource( 9 )
+uv1_scale = Vector3( 5, 5, 5 )
+
+[sub_resource type="CubeMesh" id=11]
+material = SubResource( 10 )
+size = Vector3( 5, 5, 5 )
+
+[sub_resource type="ConcavePolygonShape" id=12]
+data = PoolVector3Array( -2.5, 2.5, 2.5, 2.5, 2.5, 2.5, -2.5, -2.5, 2.5, 2.5, 2.5, 2.5, 2.5, -2.5, 2.5, -2.5, -2.5, 2.5, 2.5, 2.5, -2.5, -2.5, 2.5, -2.5, 2.5, -2.5, -2.5, -2.5, 2.5, -2.5, -2.5, -2.5, -2.5, 2.5, -2.5, -2.5, 2.5, 2.5, 2.5, 2.5, 2.5, -2.5, 2.5, -2.5, 2.5, 2.5, 2.5, -2.5, 2.5, -2.5, -2.5, 2.5, -2.5, 2.5, -2.5, 2.5, -2.5, -2.5, 2.5, 2.5, -2.5, -2.5, -2.5, -2.5, 2.5, 2.5, -2.5, -2.5, 2.5, -2.5, -2.5, -2.5, 2.5, 2.5, 2.5, -2.5, 2.5, 2.5, 2.5, 2.5, -2.5, -2.5, 2.5, 2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, -2.5, -2.5, 2.5, 2.5, -2.5, 2.5, -2.5, -2.5, -2.5, 2.5, -2.5, 2.5, 2.5, -2.5, -2.5, -2.5, -2.5, -2.5 )
+
+[sub_resource type="BoxShape" id=13]
+extents = Vector3( 3, 19.5, 3 )
+
+[sub_resource type="BoxShape" id=14]
+extents = Vector3( 3, 5.2908, 7.01824 )
+
+[sub_resource type="Animation" id=15]
+resource_name = "flight"
+length = 100.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 100 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 115.465, 82.362, -5000 ), Vector3( 115.465, 82.362, 5000 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 99.9, 100 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+
+[node name="world" type="Spatial"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+pause_mode = 1
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 120, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance3" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -500 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance5" type="MeshInstance" parent="StaticBody"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 500, 0, 0 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="MeshInstance6" type="MeshInstance" parent="StaticBody"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -500, 0, 0 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 6 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 120, 0 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -500 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="StaticBody"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 500, 0, 0 )
+shape = SubResource( 7 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="StaticBody"]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -500, 0, 0 )
+shape = SubResource( 7 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.707106, -0.310652, 0.635213, 0, 0.898327, 0.439328, -0.707106, 0.310652, -0.635213, 0, 15.0066, 0 )
+light_color = Color( 0.996078, 0.992157, 0.992157, 1 )
+shadow_enabled = true
+directional_shadow_split_2 = 0.254
+directional_shadow_split_3 = 0.543
+directional_shadow_blend_splits = true
+directional_shadow_normal_bias = 0.0
+directional_shadow_bias_split_scale = 0.0
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 500.0
+
+[node name="Quadrocopter" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+
+[node name="Decos" type="Spatial" parent="."]
+pause_mode = 1
+
+[node name="CSGTorus" type="CSGTorus" parent="Decos"]
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 8 )
+
+[node name="CSGTorus2" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 0 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus3" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 4 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus4" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 8 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus5" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 12 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus6" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 16 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus7" type="CSGTorus" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 25, 6, 20 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus8" type="CSGTorus" parent="Decos"]
+transform = Transform( 0.866025, -0.5, 8.14603e-08, 0, -1.62921e-07, -1, 0.5, 0.866025, -1.41093e-07, 24.0956, 6, 25 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus9" type="CSGTorus" parent="Decos"]
+transform = Transform( 0.5, -0.866025, 1.41093e-07, 0, -1.62921e-07, -1, 0.866025, 0.5, -8.14603e-08, 20.4708, 6, 28.6478 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus10" type="CSGTorus" parent="Decos"]
+transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 16.4708, 6, 29.6757 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus11" type="CSGTorus" parent="Decos"]
+transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 12.4708, 6, 29.6757 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="CSGTorus12" type="CSGTorus" parent="Decos"]
+transform = Transform( -1.62921e-07, -1, 1.62921e-07, 0, -1.62921e-07, -1, 1, -1.62921e-07, 2.65431e-14, 8.47083, 6, 29.6757 )
+outer_radius = 2.2
+sides = 16
+ring_sides = 12
+smooth_faces = false
+material = SubResource( 9 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 2.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance46" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance46"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance46/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance51" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, 30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance51"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance51/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance52" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, 60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance52"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance52/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance47" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance47"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance47/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance48" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance48"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance48/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance49" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -90 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance49"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance49/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance50" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -120 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance50"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance50/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance61" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -120 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance61"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance61/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance65" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -90 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance65"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance65/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance68" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance68"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance68/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance71" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance71"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance71/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance74" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance74"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance74/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance77" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, 30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance77"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance77/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance81" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, 45 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance81"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance81/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance82" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, 45 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance82"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance82/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance84" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, 15 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance84"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance84/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance83" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, 15 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance83"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance83/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance86" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -15 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance86"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance86/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance85" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -15 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance85"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance85/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance88" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -45 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance88"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance88/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance87" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -45 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance87"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance87/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance90" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -75 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance90"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance90/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance89" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -75 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance89"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance89/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance92" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, -105 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance92"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance92/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance91" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 2.5, -105 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance91"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance91/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance80" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 2.5, 60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance80"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance80/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance59" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance59"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance59/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance58" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, 30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance58"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance58/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance57" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, 60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance57"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance57/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance56" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, -30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance56"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance56/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance55" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, -60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance55"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance55/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance54" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, -90 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance54"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance54/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance53" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 220, 7.5, -120 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance53"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance53/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance62" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, -120 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance62"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance62/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance60" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, -120 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance60"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance60/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance64" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, -90 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance64"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance64/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance63" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, -90 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance63"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance63/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance67" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, -60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance67"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance67/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance66" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, -60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance66"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance66/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance70" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, -30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance70"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance70/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance69" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, -30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance69"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance69/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance73" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance73"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance73/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance72" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance72"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance72/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance76" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, 30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance76"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance76/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance75" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, 30 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance75"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance75/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance79" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 225, 7.5, 60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance79"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance79/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance78" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 230, 7.5, 60 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance78"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance78/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 32 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance4/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance5/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance6" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance6/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance7" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance7"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance7/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance8" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance8"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance8/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance13" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 7.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance13"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance13/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance14" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 7.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance14"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance14/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance15" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 7.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance15"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance15/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance16" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 7.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance16"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance16/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance17" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 12.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance17"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance17/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance18" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 12.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance18"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance18/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance19" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 12.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance19"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance19/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance20" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 12.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance20"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance20/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance21" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 17.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance21"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance21/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance22" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 17.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance22"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance22/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance23" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 17.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance23"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance23/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance24" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 7.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance24"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance24/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance33" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 12.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance33"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance33/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance9" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance9"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance9/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance25" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 7.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance25"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance25/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance26" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 12.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance26"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance26/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance27" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 17.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance27"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance27/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance10" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance10"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance10/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance30" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance30"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance30/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance31" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 12.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance31"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance31/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance32" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 17.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance32"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance32/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance28" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance28"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance28/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance11" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance11"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance11/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance36" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance36"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance36/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance38" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance38"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance38/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance39" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 12.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance39"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance39/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance40" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 17.5, 146 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance40"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance40/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance37" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 12.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance37"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance37/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance41" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 17.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance41"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance41/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance42" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 12.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance42"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance42/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance43" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 17.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance43"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance43/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance29" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance29"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance29/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance44" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 141 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance44"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance44/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance45" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 151 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance45"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance45/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance12" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance12"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance12/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance34" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 7.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance34"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance34/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance35" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 12.5, 136 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance35"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance35/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 7.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance2/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 2.5, 0 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance3/StaticBody"]
+shape = SubResource( 12 )
+
+[node name="Cybertruck" parent="Decos" instance=ExtResource( 8 )]
+transform = Transform( 3, 0, 0, 0, -1.31134e-07, -3, 0, 3, -1.31134e-07, 300, 0, -300 )
+
+[node name="Supercharger" parent="Decos" instance=ExtResource( 10 )]
+transform = Transform( 0.049006, 0, -0.798498, 0, 0.8, 0, 0.798498, 0, 0.049006, -1.70862, 0, 0 )
+
+[node name="WindlessArea" type="Area" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25647, 0, 141.914 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/WindlessArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.56233, 0, 4.06487 )
+shape = SubResource( 13 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Decos/WindlessArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.56233, 0, -0.891586 )
+shape = SubResource( 14 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="Decos/WindlessArea"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.21541, 0, 4.62943 )
+shape = SubResource( 14 )
+
+[node name="Fridge" parent="Decos" instance=ExtResource( 15 )]
+transform = Transform( 1, 1.50996e-07, 8.74228e-08, -1.50996e-07, 1, 1.06581e-14, -8.74228e-08, -2.38586e-14, 1, -282.599, -0.0789852, -285.132 )
+
+[node name="Falcon9" parent="Decos" instance=ExtResource( 13 )]
+transform = Transform( -2, -3.01992e-07, -1.32005e-14, 0, -8.74228e-08, 2, -3.01992e-07, 2, 8.74228e-08, -300, 4.43773, 135.968 )
+
+[node name="Lufthansa" parent="Decos" instance=ExtResource( 12 )]
+transform = Transform( -8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 115.465, 82.362, -5000 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Decos/Lufthansa"]
+autoplay = "flight"
+anims/flight = SubResource( 15 )
+script = ExtResource( 14 )
+
+[node name="Boxes" type="Spatial" parent="."]
+pause_mode = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.697132, 7.38841 )
+
+[node name="DeliveryBox_Medium" parent="Boxes" instance=ExtResource( 6 )]
+
+[node name="DeliveryBox_Medium2" parent="Boxes" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0 )
+
+[node name="DeliveryBox_Medium3" parent="Boxes" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
+
+[node name="DeliveryBox_Small" parent="Boxes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
+
+[node name="DeliveryBox_Small2" parent="Boxes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0 )
+
+[node name="DeliveryBox_Small3" parent="Boxes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0 )
+
+[node name="DeliveryBox_Small4" parent="Boxes" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 0 )
+
+[node name="DeliveryBox_Heavy" parent="Boxes" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0 )
+
+[node name="DeliveryBox_Heavy2" parent="Boxes" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "PAUSED"
+align = 1
+valign = 1
+[connection signal="body_entered" from="Decos/WindlessArea" to="Decos/WindlessArea" method="_on_WindlessArea_body_entered"]
+[connection signal="body_exited" from="Decos/WindlessArea" to="Decos/WindlessArea" method="_on_WindlessArea_body_exited"]
