@@ -1,4 +1,4 @@
-# Drone Simulator Playable Demo
+![Screenshot](/textlogo.png)
 ![Screenshot](/screenshot.png)
 
 My son wants to design his own drone from scratch, including chassis design and code. This project is a tool that will help us test our design in virtual environment.
