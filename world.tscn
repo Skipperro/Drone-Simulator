@@ -774,6 +774,16 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance4/StaticBody"]
 shape = SubResource( 12 )
 
+[node name="MeshInstance93" type="MeshInstance" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 2.5, -13 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="Decos/MeshInstance93"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/MeshInstance93/StaticBody"]
+shape = SubResource( 12 )
+
 [node name="MeshInstance5" type="MeshInstance" parent="Decos"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 2.5, 136 )
 mesh = SubResource( 11 )

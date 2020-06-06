@@ -34,6 +34,22 @@ var trim = Vector3(0,0,0)
 
 onready var s_ground = $GroundIRSensor
 
+onready var cam_tweak = Vector2(0,0)
+onready var cam_tweak_startpos = Vector2(0,0)
+var rmbpressed = false
+var topview = false
+
+func _input(ev):
+	if ev is InputEventMouseButton:
+		if ev.button_index == BUTTON_RIGHT:
+			rmbpressed = ev.pressed
+			cam_tweak_startpos = ev.global_position
+			if not rmbpressed:
+				cam_tweak = Vector2(0,0)
+	
+	if ev is InputEventMouseMotion:
+		if rmbpressed:
+			cam_tweak = cam_tweak_startpos - ev.global_position
 
 func read_accelerometer(delta):
 	basis = get_transform().basis
@@ -264,6 +280,9 @@ func adjust_yaw_power():
 
 func _physics_process(delta):
 	
+	if Input.is_action_just_pressed("Reset"):
+		$UI/ResetDialog.popup()
+	
 	if Input.is_action_just_pressed("ui_cancel"):
 		$UI/QuitDialog.popup()
 	
@@ -280,13 +299,18 @@ func _physics_process(delta):
 	if Input.is_action_just_released("precision"):
 		accumulated_error = -accelerometer*2
 	
-	if Input.is_action_just_pressed("CamView"):
-		var cm = get_parent().get_node("Smoothing/cammount/cammount")
-		if cm.rotation_degrees.x > -80:
-			cm.rotation_degrees.x = -90
-		else:
-			cm.rotation_degrees.x = -30
+	var cm = get_parent().get_node("Smoothing/cammount/cammount")
 	
+	if Input.is_action_just_pressed("CamView"):
+		topview = not topview
+		#if cm.rotation_degrees.x > -80:
+		#	cm.rotation_degrees.x = -90
+		#else:
+		#	cm.rotation_degrees.x = -30
+		
+	cm.rotation_degrees.y = 180 + (cam_tweak.x * 0.5)
+	cm.rotation_degrees.x = -30 + (cam_tweak.y * 0.5) + (int(topview) * -60)
+		
 	read_accelerometer(delta)
 	set_main_thrust(delta)
 	set_pitch_thrust(delta)
@@ -380,3 +404,7 @@ func _on_QuitDialog_confirmed():
 
 func _on_Fullscreen_toggled(button_pressed):
 	OS.window_fullscreen = not button_pressed
+
+
+func _on_ResetDialog_confirmed():
+	get_tree().change_scene("res://world.tscn")

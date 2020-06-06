@@ -1,9 +1,17 @@
 [gd_resource type="Environment" load_steps=2 format=2]
 
 [sub_resource type="ProceduralSky" id=1]
+ground_bottom_color = Color( 0.639216, 0.752941, 0.843137, 1 )
+ground_horizon_color = Color( 0.839216, 0.917647, 0.980392, 1 )
+sun_latitude = 22.59
+sun_longitude = -98.0
 
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_custom_fov = 165.5
+background_sky_orientation = Basis( -0.798636, 0, -0.601815, 0, 1, 0, 0.601815, 0, -0.798636 )
 ambient_light_energy = 0.2
+fog_depth_end = 143.0
+glow_strength = 0.81
+glow_blend_mode = 0
+glow_bicubic_upscale = true

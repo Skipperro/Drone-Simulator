@@ -19,35 +19,27 @@ height = 0.03
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.3, 0.1, 0.5 )
 
-[sub_resource type="SphereShape" id=13]
+[sub_resource type="SphereShape" id=3]
 radius = 0.1
 
-[sub_resource type="SphereMesh" id=3]
+[sub_resource type="SphereMesh" id=4]
 radius = 0.1
 height = 0.2
 radial_segments = 4
 rings = 1
 
-[sub_resource type="PhysicsMaterial" id=4]
+[sub_resource type="PhysicsMaterial" id=5]
 friction = 0.5
 rough = true
 bounce = 0.3
 absorbent = true
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.232413, 0.137293, 0.406826 )
 
-[sub_resource type="CylinderShape" id=6]
+[sub_resource type="CylinderShape" id=7]
 radius = 0.3
 height = 0.05
-
-[sub_resource type="SphereMesh" id=7]
-resource_local_to_scene = true
-radius = 0.05
-height = 0.5
-radial_segments = 4
-rings = 1
-is_hemisphere = true
 
 [sub_resource type="SphereMesh" id=8]
 resource_local_to_scene = true
@@ -73,10 +65,18 @@ radial_segments = 4
 rings = 1
 is_hemisphere = true
 
-[sub_resource type="StyleBoxFlat" id=11]
-bg_color = Color( 0.6, 0.00392157, 0.560784, 1 )
+[sub_resource type="SphereMesh" id=11]
+resource_local_to_scene = true
+radius = 0.05
+height = 0.5
+radial_segments = 4
+rings = 1
+is_hemisphere = true
 
 [sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.6, 0.00392157, 0.560784, 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
 bg_color = Color( 0, 0, 0, 0.752941 )
 
 [node name="Quadrocopter" type="Spatial"]
@@ -123,7 +123,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76643e-09, 0.319869, 0 )
 [node name="cammount" type="SpringArm" parent="Smoothing/cammount"]
 transform = Transform( -1, 1.62921e-07, -2.82187e-07, 0, 0.866025, 0.5, 3.25841e-07, 0.5, -0.866025, -4.13504e-09, 0.277497, -0.743858 )
 collision_mask = 3
-shape = SubResource( 13 )
+shape = SubResource( 3 )
 spring_length = 3.0
 margin = 1.0
 
@@ -132,12 +132,12 @@ transform = Transform( 1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, -
 
 [node name="MeshInstance" type="MeshInstance" parent="Smoothing/cammount/cammount"]
 visible = false
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Quadrocopter" type="RigidBody" parent="."]
 transform = Transform( 1, 1.49012e-08, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-physics_material_override = SubResource( 4 )
+physics_material_override = SubResource( 5 )
 linear_damp = 0.1
 angular_damp = 0.1
 script = ExtResource( 1 )
@@ -149,7 +149,7 @@ cast_to = Vector3( 0, -6, 0 )
 
 [node name="BodyCollision" type="CollisionShape" parent="Quadrocopter"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91188e-09, 0.128304, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="MotorSound" type="AudioStreamPlayer3D" parent="Quadrocopter"]
 transform = Transform( 1, -1.49012e-08, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, 0.34 )
@@ -162,38 +162,38 @@ doppler_tracking = 1
 
 [node name="FLCollision" type="CollisionShape" parent="Quadrocopter"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, 0.34 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Visualizer" type="MeshInstance" parent="Quadrocopter/FLCollision"]
-visible = false
-mesh = SubResource( 7 )
-material/0 = ExtResource( 3 )
-
-[node name="FRCollision" type="CollisionShape" parent="Quadrocopter"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 0.266143, 0.34 )
-shape = SubResource( 6 )
-
-[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/FRCollision"]
 visible = false
 mesh = SubResource( 8 )
 material/0 = ExtResource( 3 )
 
-[node name="BLCollision" type="CollisionShape" parent="Quadrocopter"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, -0.34 )
-shape = SubResource( 6 )
+[node name="FRCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 0.266143, 0.34 )
+shape = SubResource( 7 )
 
-[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/BLCollision"]
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/FRCollision"]
 visible = false
 mesh = SubResource( 9 )
 material/0 = ExtResource( 3 )
 
+[node name="BLCollision" type="CollisionShape" parent="Quadrocopter"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 0.266143, -0.34 )
+shape = SubResource( 7 )
+
+[node name="Visualizer" type="MeshInstance" parent="Quadrocopter/BLCollision"]
+visible = false
+mesh = SubResource( 10 )
+material/0 = ExtResource( 3 )
+
 [node name="BRCollision" type="CollisionShape" parent="Quadrocopter"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.34, 0.266143, -0.34 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Visualizer" type="MeshInstance" parent="Quadrocopter/BRCollision"]
 visible = false
-mesh = SubResource( 10 )
+mesh = SubResource( 11 )
 material/0 = ExtResource( 3 )
 
 [node name="UI" type="Control" parent="Quadrocopter"]
@@ -289,12 +289,14 @@ text = "Controls:
 [Space] - Hover mode
 [G] - Grab/release package
 
+[RMB] - Mouse free look
 [C] - Toggle camera view
 [M] - Toggle music
 [N] - Toggle drone noise
 [L] - Lufthansa
 [P] - Pause
 
+[R] - Reset everything
 [ESC] - Quit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -319,8 +321,8 @@ margin_left = 13.5367
 margin_top = 17.2481
 margin_right = 53.5367
 margin_bottom = 47.2481
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
 step = 1.0
 value = 50.0
 rounded = true
@@ -333,8 +335,8 @@ margin_left = 97.5367
 margin_top = 17.2481
 margin_right = 137.537
 margin_bottom = 47.2481
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
 step = 1.0
 value = 50.0
 rounded = true
@@ -347,8 +349,8 @@ margin_left = 13.5367
 margin_top = 100.248
 margin_right = 53.5367
 margin_bottom = 130.248
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
 step = 1.0
 value = 50.0
 rounded = true
@@ -361,8 +363,8 @@ margin_left = 97.5367
 margin_top = 100.248
 margin_right = 137.537
 margin_bottom = 130.248
-custom_styles/fg = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
+custom_styles/fg = SubResource( 12 )
+custom_styles/bg = SubResource( 13 )
 step = 1.0
 value = 50.0
 rounded = true
@@ -671,6 +673,18 @@ margin_bottom = 35.0
 window_title = "Quit"
 dialog_text = "Do you want to exit now?"
 
+[node name="ResetDialog" type="ConfirmationDialog" parent="Quadrocopter/UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -35.0
+margin_right = 100.0
+margin_bottom = 35.0
+window_title = "Reset"
+dialog_text = "Do you want to reset environment and drone?"
+
 [node name="GrabCast" type="RayCast" parent="Quadrocopter"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66119e-09, 0.0774808, 0.00399283 )
 enabled = true
@@ -684,6 +698,7 @@ collision/exclude_nodes = false
 
 [node name="Music" type="AudioStreamPlayer" parent="Quadrocopter"]
 stream = ExtResource( 8 )
+autoplay = true
 bus = "Music"
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
@@ -705,3 +720,4 @@ script = ExtResource( 4 )
 [connection signal="toggled" from="Quadrocopter/UI/SettingsPanel/Antialiasing" to="Quadrocopter" method="_on_Antialiasing_toggled"]
 [connection signal="pressed" from="Quadrocopter/UI/SettingsButton" to="Quadrocopter" method="_on_SettingsButton_pressed"]
 [connection signal="confirmed" from="Quadrocopter/UI/QuitDialog" to="Quadrocopter" method="_on_QuitDialog_confirmed"]
+[connection signal="confirmed" from="Quadrocopter/UI/ResetDialog" to="Quadrocopter" method="_on_ResetDialog_confirmed"]
