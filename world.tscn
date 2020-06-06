@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://Quadrocopter_v2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://spacex_falcon_9_and_dragon_2/SpaceXFalcon.tscn" type="PackedScene" id=13]
 [ext_resource path="res://PlaneScript.gd" type="Script" id=14]
 [ext_resource path="res://fridge_zil/fridge.tscn" type="PackedScene" id=15]
+[ext_resource path="res://hangar/hangar.tscn" type="PackedScene" id=16]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1000, 0.1, 1000 )
@@ -83,8 +84,13 @@ extents = Vector3( 3, 19.5, 3 )
 [sub_resource type="BoxShape" id=14]
 extents = Vector3( 3, 5.2908, 7.01824 )
 
-[sub_resource type="Animation" id=15]
-resource_name = "flight"
+[sub_resource type="BoxShape" id=15]
+extents = Vector3( 29.8848, 16.1859, 19.3235 )
+
+[sub_resource type="BoxShape" id=16]
+extents = Vector3( 2.15266, 13.1637, 3.37721 )
+
+[sub_resource type="Animation" id=17]
 length = 100.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -1236,8 +1242,23 @@ shape = SubResource( 14 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.21541, 0, 4.62943 )
 shape = SubResource( 14 )
 
+[node name="WindlessArea2" type="Area" parent="Decos"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 164.52, 0, 204.753 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/WindlessArea2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.56233, 0, 11.9019 )
+shape = SubResource( 15 )
+
 [node name="Fridge" parent="Decos" instance=ExtResource( 15 )]
 transform = Transform( 1, 1.50996e-07, 8.74228e-08, -1.50996e-07, 1, 1.06581e-14, -8.74228e-08, -2.38586e-14, 1, -282.599, -0.0789852, -285.132 )
+
+[node name="WindlessArea3" type="Area" parent="Decos/Fridge"]
+transform = Transform( 1, -1.50996e-07, -8.74228e-08, 1.50996e-07, 1, -2.38586e-14, 8.74228e-08, 1.06581e-14, 1, 0, 0, 0 )
+script = ExtResource( 11 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Decos/Fridge/WindlessArea3"]
+shape = SubResource( 16 )
 
 [node name="Falcon9" parent="Decos" instance=ExtResource( 13 )]
 transform = Transform( -2, -3.01992e-07, -1.32005e-14, 0, -8.74228e-08, 2, -3.01992e-07, 2, 8.74228e-08, -300, 4.43773, 135.968 )
@@ -1247,8 +1268,11 @@ transform = Transform( -8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 115.465
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Decos/Lufthansa"]
 autoplay = "flight"
-anims/flight = SubResource( 15 )
+anims/flight = SubResource( 17 )
 script = ExtResource( 14 )
+
+[node name="Hangar" parent="." instance=ExtResource( 16 )]
+transform = Transform( -2, 0, -3.01992e-07, 0, 2, 0, 3.01992e-07, 0, -2, 159, -0.3311, 213 )
 
 [node name="Boxes" type="Spatial" parent="."]
 pause_mode = 1
@@ -1297,3 +1321,7 @@ align = 1
 valign = 1
 [connection signal="body_entered" from="Decos/WindlessArea" to="Decos/WindlessArea" method="_on_WindlessArea_body_entered"]
 [connection signal="body_exited" from="Decos/WindlessArea" to="Decos/WindlessArea" method="_on_WindlessArea_body_exited"]
+[connection signal="body_entered" from="Decos/WindlessArea2" to="Decos/WindlessArea2" method="_on_WindlessArea_body_entered"]
+[connection signal="body_exited" from="Decos/WindlessArea2" to="Decos/WindlessArea2" method="_on_WindlessArea_body_exited"]
+[connection signal="body_entered" from="Decos/Fridge/WindlessArea3" to="Decos/Fridge/WindlessArea3" method="_on_WindlessArea_body_entered"]
+[connection signal="body_exited" from="Decos/Fridge/WindlessArea3" to="Decos/Fridge/WindlessArea3" method="_on_WindlessArea_body_exited"]

@@ -698,7 +698,6 @@ collision/exclude_nodes = false
 
 [node name="Music" type="AudioStreamPlayer" parent="Quadrocopter"]
 stream = ExtResource( 8 )
-autoplay = true
 bus = "Music"
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
